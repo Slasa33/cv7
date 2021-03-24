@@ -32,25 +32,30 @@ class LocationManager():
     
     def add_location(self, path):
 
-        ar = array('f')
-        with open(path, "rb") as f:
-            arr = array('f')
-            arr.frombytes(f.read())
+        if(type(path) == 'list'):
+            print("kokot")
 
-        for num in arr:
-            ar.append(num)
+        pass
 
-        for i, k in zip(ar[0::2], ar[1::2]):
-            self.locations.append([i, k])
+        # ar = array('f')
+        # with open(path, "rb") as f:
+        #     arr = array('f')
+        #     arr.frombytes(f.read())
 
-        totalDistance = 0
-        count = 0
-        for i in range(len(test.locations)-1):
-            point1 = GPSPoint(test.locations[count][0], test.locations[count][1])
-            point2 = GPSPoint(test.locations[count+1][0], test.locations[count+1][1])
-            totalDistance += LocationManager.get_distance(point1, point2)
-            count += 1
-        print(f"Total distance of points from file {path} is {totalDistance} meters")
+        # for num in arr:
+        #     ar.append(num)
+
+        # for i, k in zip(ar[0::2], ar[1::2]):
+        #     self.locations.append([i, k])
+
+        # totalDistance = 0
+        # count = 0
+        # for i in range(len(test.locations)-1):
+        #     point1 = GPSPoint(test.locations[count][0], test.locations[count][1])
+        #     point2 = GPSPoint(test.locations[count+1][0], test.locations[count+1][1])
+        #     totalDistance += LocationManager.get_distance(point1, point2)
+        #     count += 1
+        # print(f"Total distance of points from file {path} is {totalDistance} meters")
 
     
     def create_gpx(self, filename):
@@ -84,10 +89,11 @@ class LocationManager():
 
         return R * c
 
-        
+
+souradnice = [(49.8, 18.2), (49.9, 18.3)]
 
 test = LocationManager()
-
+test.add_location("locations.dat")
 test.add_location("locations.dat")
 test.create_gpx("brutalita.gpx")
 

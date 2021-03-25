@@ -32,30 +32,14 @@ class LocationManager():
     
     def add_location(self, path):
 
-        if(type(path) == 'list'):
-            print("kokot")
+        if(type(path) is list):
+            for i in path:
+                self.locations.append(i)
 
-        pass
+        else:
+            self.locations.extend([path])
 
-        # ar = array('f')
-        # with open(path, "rb") as f:
-        #     arr = array('f')
-        #     arr.frombytes(f.read())
-
-        # for num in arr:
-        #     ar.append(num)
-
-        # for i, k in zip(ar[0::2], ar[1::2]):
-        #     self.locations.append([i, k])
-
-        # totalDistance = 0
-        # count = 0
-        # for i in range(len(test.locations)-1):
-        #     point1 = GPSPoint(test.locations[count][0], test.locations[count][1])
-        #     point2 = GPSPoint(test.locations[count+1][0], test.locations[count+1][1])
-        #     totalDistance += LocationManager.get_distance(point1, point2)
-        #     count += 1
-        # print(f"Total distance of points from file {path} is {totalDistance} meters")
+        # print(self.locations)
 
     
     def create_gpx(self, filename):
@@ -93,14 +77,40 @@ class LocationManager():
 souradnice = [(49.8, 18.2), (49.9, 18.3)]
 
 test = LocationManager()
-test.add_location("locations.dat")
-test.add_location("locations.dat")
-test.create_gpx("brutalita.gpx")
+
 
 # point1 = GPSPoint(49.9175043404, 18.2036630809)
 # point2 = GPSPoint(49.8624285311, 18.1018678844)
 # print(LocationManager.get_distance(point1, point2))
 
+
+# test.add_location(1)
+# test.add_location(souradnice)
+# test.add_location(2)
+
+
+
+ar = array('f')
+with open("locations.dat", "rb") as f:
+    arr = array('f')
+    arr.frombytes(f.read())
+
+for num in arr:
+    ar.append(num)
+
+for i, k in zip(ar[0::2], ar[1::2]):
+    test.add_location([(i, k)])
+
+test.create_gpx("brutalek2.xml")
+
+totalDistance = 0
+count = 0
+for i in range(len(test.locations)-1):
+    point1 = GPSPoint(test.locations[count][0], test.locations[count][1])
+    point2 = GPSPoint(test.locations[count+1][0], test.locations[count+1][1])
+    totalDistance += LocationManager.get_distance(point1, point2)
+    count += 1
+print(f"Total distance of points is {totalDistance} meters")
 
 
 
